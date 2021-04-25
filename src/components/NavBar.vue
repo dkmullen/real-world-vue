@@ -1,9 +1,5 @@
 <template>
   <div id="nav" class="nav">
-    <!-- <router-link to="/">Home</router-link> | -->
-    <!-- ...or using a named route, which allows later path changes with no name change 
-        ie, gives the path value a var name; value changes in one place only
-      -->
     <router-link to="/" class="brand">Real World Events</router-link>
     <nav>
       <router-link :to="{ name: 'event-list' }">List</router-link> |

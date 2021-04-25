@@ -1,19 +1,27 @@
 import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-
-// /This block automatically registers Base components
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
+import App from './App.vue'
+import router from './router'
+import store from './store/store'
+import 'nprogress/nprogress.css'
+import Vuelidate from 'vuelidate'
+import DateFilter from './filters/date'
 
+Vue.filter('date', DateFilter)
+
+Vue.use(Vuelidate)
+
+Vue.config.productionTip = false
+
+// Makes a global component out of any in /components named Base*.vue
 const requireComponent = require.context(
   './components',
   false,
   /Base[A-Z]\w+\.(vue|js)$/
 )
 
-requireComponent.keys().forEach((fileName) => {
+requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName)
 
   const componentName = upperFirst(
@@ -22,12 +30,9 @@ requireComponent.keys().forEach((fileName) => {
 
   Vue.component(componentName, componentConfig.default || componentConfig)
 })
-// End block
-
-Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount('#app')
